@@ -40,8 +40,7 @@ public class NBody {
                 yFarr[i] = planets[i].calcNetForceExertedByY(planets);
             }
             for (Planet planet : planets) {
-                StdDraw.picture(planet.xxPos,planet.yyPos,"images/"+planet.imgFileName);
-                StdDraw.show();
+                planet.draw();
             }
             for (int i = 0 ; i < planets.length ; i++) {
                 planets[i].update(dt,xFarr[i],yFarr[i]);

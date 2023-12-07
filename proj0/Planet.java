@@ -1,7 +1,7 @@
 import java.lang.Math;
 
 public class Planet {
-    static final double G = 6.67E-11;
+    private static final double G = 6.67E-11;
 
     public double xxPos;
     public double yyPos;
@@ -73,6 +73,11 @@ public class Planet {
         yyVel += dt * ay;
         xxPos += dt * xxVel;
         yyPos += dt * yyVel;
+    }
+
+    public void draw() {
+        StdDraw.picture(xxPos,yyPos,"images/"+imgFileName);
+        StdDraw.show();
     }
 
 }
