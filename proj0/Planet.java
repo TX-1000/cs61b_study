@@ -28,9 +28,9 @@ public class Planet {
         imgFileName = example.imgFileName;
     }
 
-    public void show() {
-        System.out.println("  xP: " + xxPos + "  yP: " + yyPos + "  xV: " + xxVel + "  yV: " + yyVel + "  mass: " + mass + "  img: " + imgFileName);
-    }
+    // priva void show() {
+    //     System.out.println("  xP: " + xxPos + "  yP: " + yyPos + "  xV: " + xxVel + "  yV: " + yyVel + "  mass: " + mass + "  img: " + imgFileName);
+    // }
 
     public double calcDistance(Planet other) {
         return Math.pow((xxPos-other.xxPos)*(xxPos-other.xxPos)+(yyPos-other.yyPos)*(yyPos-other.yyPos), 0.5);
