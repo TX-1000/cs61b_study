@@ -1,4 +1,4 @@
-public class LinkedListDeque <T> implements Deque<T> {
+public class LinkedListDeque <T> {
     // it is a circular setinel LLD
     private class Node {
         private T item;
