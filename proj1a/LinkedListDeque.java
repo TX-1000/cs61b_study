@@ -20,7 +20,7 @@ public class LinkedListDeque <T> {
     }
 
     private Node setinel;
-    int size;
+    private int size;
 
     // constructor for LLD without input
     public LinkedListDeque() {
@@ -31,7 +31,7 @@ public class LinkedListDeque <T> {
     }
 
     // constructor for LLD with an array of input
-    public LinkedListDeque(T... ns) {
+    /* public LinkedListDeque(T... ns) {
         setinel = new Node(setinel, setinel);
         size = 0;
         Node p = setinel;
@@ -40,18 +40,18 @@ public class LinkedListDeque <T> {
             p = p.next;
             size += 1;
         }
-    }
+    } */
 
     // constructor for LLD by copy
-    public LinkedListDeque(LinkedListDeque<T> lld) {
+    /* public LinkedListDeque(LinkedListDeque<T> lld) {
         setinel = new Node(setinel, setinel);
         size = 0;
         Node p1 = setinel;
-        for (Node p2 = lld.setinel.next ; p2 != lld.setinel ; p2 = p2.next) {
+        for (Node p2 = lld.setinel.next; p2 != lld.setinel; p2 = p2.next) {
             p1.next = new Node(p2.item, p1, setinel);
             size += 1;
         }
-    }
+    } */
 
     public void addFirst(T n) {
         Node newNode = new Node(n, setinel, setinel.next);
@@ -72,7 +72,7 @@ public class LinkedListDeque <T> {
     }
 
     public void printDeque() {
-        for (Node p = setinel.next ; p != setinel ; p = p.next) {
+        for (Node p = setinel.next; p != setinel; p = p.next) {
             System.out.print(p.item + "  ");
         }
         System.out.print('\n');
@@ -102,7 +102,7 @@ public class LinkedListDeque <T> {
         if (index <= 0) return null;
         if (index > size) return null;
         Node p = setinel;
-        for (int i = 0 ; i < index ; i++) p = p.next;
+        for (int i = 0; i <= index; i++) p = p.next;
         return p.item;
     }
 

@@ -10,15 +10,15 @@ public class ArrayDeque<T> {
         my_array = (T[]) new Object[8];
     }
 
-    public ArrayDeque(T[] t_array) {
+    /* public ArrayDeque(T[] t_array) {
         maxsize = 8;
         size = t_array.length;
         while (maxsize < size) maxsize *= 2;
         my_array = (T[]) new Object[maxsize];
-        for (int i = 0 ; i < t_array.length ; i++) {
+        for (int i = 0; i < t_array.length; i++) {
             my_array[i] = t_array[i];
         }
-    }
+    } */
 
     // double space, integrating cond(may cause surprise)
     private void doubleSpace() {
@@ -27,7 +27,7 @@ public class ArrayDeque<T> {
         if (size < maxsize) return;
         maxsize = Integer.min(maxsize *= 2, Integer.MAX_VALUE);
         T[] new_array = (T[]) new Object[maxsize];
-        for (int i = 0 ; i < size ; i++) {
+        for (int i = 0; i < size; i++) {
             new_array[i] = my_array[i];
         }
         my_array = new_array;
@@ -37,9 +37,9 @@ public class ArrayDeque<T> {
     private void halfSpace() {
         if (maxsize <= 8) return;
         if (size >= maxsize / 4) return;
-        maxsize = Integer.max(8, maxsize/2);
+        maxsize = Integer.max(8, maxsize / 2);
         T[] new_array = (T[]) new Object[maxsize];
-        for (int i = 0 ; i < size ; i++) {
+        for (int i = 0; i < size; i++) {
             new_array[i] = my_array[i];
         }
         my_array = new_array;
@@ -48,7 +48,7 @@ public class ArrayDeque<T> {
     public void addFirst(T n) {
         doubleSpace();
         // pull back every number first
-        for (int i = size ; i >= 0 ; i--) my_array[i+1] = my_array[i];
+        for (int i = size; i >= 0; i--) my_array[i+1] = my_array[i];
         my_array[0] = n;
         size += 1;
     }
@@ -60,7 +60,9 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        for (int i = 0 ; i < size ; i++) System.out.print(my_array[i]+"  ");
+        for (int i = 0; i < size; i++) {
+            System.out.print(my_array[i] + "  ");
+        }
         System.out.print('\n');
     }
 
@@ -80,7 +82,9 @@ public class ArrayDeque<T> {
 
     public T removeFirst() {
         T tmp = my_array[0];
-        for (int i = 0 ; i < size-1 ; i++) my_array[i] = my_array[i+1];
+        for (int i = 0; i < size-1; i++) {
+            my_array[i] = my_array[i+1];
+        }
         size -= 1;
         halfSpace();
         return tmp;
