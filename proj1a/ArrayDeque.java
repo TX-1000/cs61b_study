@@ -2,18 +2,20 @@ public class ArrayDeque<T> {
     private T[] my_array;
     private int maxsize;
     private int size;
+    private int front;
 
     // constructor
     public ArrayDeque() {
         maxsize = 8;
         size = 0;
+        front = 0;
         my_array = (T[]) new Object[8];
     }
 
-/* 
+
     public void show() {
-        System.out.println("maxsize:" + maxsize + "  size:" + size);
-    } */
+        System.out.println("maxsize:" + maxsize + "  size:" + size + "  front:" + front);
+    }
     /* public ArrayDeque(T[] t_array) {
         maxsize = 8;
         size = t_array.length;
@@ -29,11 +31,12 @@ public class ArrayDeque<T> {
         assert size < Integer.MAX_VALUE : "overflow";
         // assert when doubleSpace, there must be item to be inserted. 
         if (size < maxsize) return;
-        maxsize = Integer.min(maxsize * 2, Integer.MAX_VALUE);
-        T[] new_array = (T[]) new Object[maxsize];
+        int new_maxsize = Integer.min(maxsize * 2, Integer.MAX_VALUE);
+        T[] new_array = (T[]) new Object[new_maxsize];
         for (int i = 0; i < size; i++) {
-            new_array[i] = my_array[i];
+            new_array[(front+i+new_maxsize)%new_maxsize] = my_array[(front+i+maxsize)%maxsize];
         }
+        maxsize = new_maxsize;
         my_array = new_array;
     }
 
@@ -53,19 +56,19 @@ public class ArrayDeque<T> {
         size += 1;
         doubleSpace();
         // pull back every number first
-        for (int i = size-1; i >= 0; i--) my_array[i+1] = my_array[i];
-        my_array[0] = n;
+        my_array[(front-1+maxsize)%maxsize] = n;
+        front = (front-1+maxsize)%maxsize;
     }
 
     public void addLast(T n) {
         size += 1;
         doubleSpace();
-        my_array[size-1] = n; 
+        my_array[(front+size-1+maxsize)%maxsize] = n; 
     }
 
     public void printDeque() {
         for (int i = 0; i < size; i++) {
-            System.out.print(my_array[i] + "  ");
+            System.out.print(my_array[(front+i+maxsize)%maxsize] + "  ");
         }
         System.out.print('\n');
     }
@@ -73,7 +76,7 @@ public class ArrayDeque<T> {
     // cout from 0
     public T get(int index) {
         assert (index>=0 & index<size) : "下标越界";
-        return my_array[index];
+        return my_array[(front+index+maxsize)%maxsize];
     }
 
     public boolean isEmpty() {
@@ -85,10 +88,8 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        T tmp = my_array[0];
-        for (int i = 0; i < size-1; i++) {
-            my_array[i] = my_array[i+1];
-        }
+        T tmp = my_array[front];
+        front = (front+1+maxsize)%maxsize;
         size -= 1;
         halfSpace();
         return tmp;
@@ -97,7 +98,7 @@ public class ArrayDeque<T> {
     public T removeLast() {
         size -= 1;
         T tmp = my_array[size];
-        my_array[size] = null;
+        my_array[(front+size+maxsize)%maxsize] = null;
         halfSpace();
         return tmp;
     }
