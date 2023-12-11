@@ -99,7 +99,7 @@ public class ArrayDeque<T> {
 
     public T removeLast() {
         size -= 1;
-        T tmp = my_array[size];
+        T tmp = my_array[(front+size+maxsize)%maxsize];
         my_array[(front+size+maxsize)%maxsize] = null;
         halfSpace();
         return tmp;
