@@ -46,17 +46,17 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T n) {
+        size += 1;
         doubleSpace();
         // pull back every number first
         for (int i = size; i >= 0; i--) my_array[i+1] = my_array[i];
         my_array[0] = n;
-        size += 1;
     }
 
     public void addLast(T n) {
-        doubleSpace();
-        my_array[size] = n;
         size += 1;
+        doubleSpace();
+        my_array[size] = n; 
     }
 
     public void printDeque() {

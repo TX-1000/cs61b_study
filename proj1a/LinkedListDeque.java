@@ -102,7 +102,9 @@ public class LinkedListDeque <T> {
         if (index <= 0) return null;
         if (index > size) return null;
         Node p = setinel;
-        for (int i = 0; i <= index; i++) p = p.next;
+        for (int i = 0; i <= index; i++) {
+            p = p.next;
+        }
         return p.item;
     }
 
