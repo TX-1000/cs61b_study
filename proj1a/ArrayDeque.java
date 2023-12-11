@@ -13,9 +13,9 @@ public class ArrayDeque<T> {
     }
 
 
-    public void show() {
+    /* public void show() {
         System.out.println("maxsize:" + maxsize + "  size:" + size + "  front:" + front);
-    }
+    } */
     /* public ArrayDeque(T[] t_array) {
         maxsize = 8;
         size = t_array.length;
