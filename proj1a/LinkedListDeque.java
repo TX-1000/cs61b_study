@@ -99,8 +99,8 @@ public class LinkedListDeque <T> {
 
     // 首先确保不越界(或许可以把越界转换为正常？)
     public T get(int index) {
-        if (index <= 0) return null;
-        if (index > size) return null;
+        if (index < 0) return null;
+        if (index >= size) return null;
         Node p = setinel;
         for (int i = 0; i <= index; i++) {
             p = p.next;

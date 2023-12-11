@@ -10,6 +10,10 @@ public class ArrayDeque<T> {
         my_array = (T[]) new Object[8];
     }
 
+/* 
+    public void show() {
+        System.out.println("maxsize:" + maxsize + "  size:" + size);
+    } */
     /* public ArrayDeque(T[] t_array) {
         maxsize = 8;
         size = t_array.length;
@@ -25,7 +29,7 @@ public class ArrayDeque<T> {
         assert size < Integer.MAX_VALUE : "overflow";
         // assert when doubleSpace, there must be item to be inserted. 
         if (size < maxsize) return;
-        maxsize = Integer.min(maxsize *= 2, Integer.MAX_VALUE);
+        maxsize = Integer.min(maxsize * 2, Integer.MAX_VALUE);
         T[] new_array = (T[]) new Object[maxsize];
         for (int i = 0; i < size; i++) {
             new_array[i] = my_array[i];
@@ -49,14 +53,14 @@ public class ArrayDeque<T> {
         size += 1;
         doubleSpace();
         // pull back every number first
-        for (int i = size; i >= 0; i--) my_array[i+1] = my_array[i];
+        for (int i = size-1; i >= 0; i--) my_array[i+1] = my_array[i];
         my_array[0] = n;
     }
 
     public void addLast(T n) {
         size += 1;
         doubleSpace();
-        my_array[size] = n; 
+        my_array[size-1] = n; 
     }
 
     public void printDeque() {
