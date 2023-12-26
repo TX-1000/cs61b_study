@@ -83,4 +83,8 @@ public class TestArrayMap {
         b.put("hi", 1);
         assertTrue(b.containsKey("hi") && b.get("hi") != null);
     }
+
+    public static void main(String[] args) {
+        jh61b.junit.TestRunner.runTests(TestArrayMap.class);
+    }
 }
