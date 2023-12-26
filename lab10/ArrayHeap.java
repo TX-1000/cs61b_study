@@ -1,6 +1,8 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.NoSuchElementException;
+
 /**
  * A Generic heap class. Unlike Java's priority queue, this heap doesn't just
  * store Comparable objects. Instead, it can store any type of object
@@ -27,24 +29,21 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Returns the index of the node to the left of the node at i.
      */
     private static int leftIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return i*2;
     }
 
     /**
      * Returns the index of the node to the right of the node at i.
      */
     private static int rightIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return i*2+1;
     }
 
     /**
      * Returns the index of the node that is the parent of the node at i.
      */
     private static int parentIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return i/2;
     }
 
     /**
@@ -107,7 +106,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
+        while (index > 1 && contents[index].priority() > contents[parentIndex(index)].priority()) {
+            swap(index, parentIndex(index));
+        }
         return;
     }
 
@@ -118,7 +119,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
+        while (index*2 < size && contents[index].priority() < Math.min(contents[leftIndex(index)].priority(), contents[rightIndex(index)].priority())) {
+            if (contents[leftIndex(index)].priority() > contents[rightIndex(index)].priority()) {
+                swap(index, leftIndex(index));
+            } else {
+                swap(index, rightIndex(index));
+            }
+        }
         return;
     }
 
@@ -133,7 +140,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             resize(contents.length * 2);
         }
 
-        /* TODO: Your code here! */
+        contents[size+1] = new Node(item, priority);
+        size++;
+        swim(size);
     }
 
     /**
@@ -142,8 +151,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T peek() {
-        /* TODO: Your code here! */
-        return null;
+        if (size == 0) throw new NoSuchElementException("Heap is empty!");
+        return contents[1].item();
     }
 
     /**
@@ -157,8 +166,11 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
-        /* TODO: Your code here! */
-        return null;
+        T minimum = contents[1].item();
+        swap(1, size);
+        size--;
+        sink(1);
+        return minimum;
     }
 
     /**
@@ -180,7 +192,16 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public void changePriority(T item, double priority) {
-        /* TODO: Your code here! */
+        int index;
+        for (index = 1 ; index <= size ; index++) {
+            if (item.equals(contents[index].item())) {
+                contents[index] = new Node(item, priority);
+                break;
+            }
+        }
+        if (index == size+1) throw new NoSuchElementException("No such item!");
+        swim(index);
+        sink(index);
         return;
     }
 
@@ -280,7 +301,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         ArrayHeap<String> pq = new ArrayHeap<>();
         pq.size = 7;
         for (int i = 1; i <= 7; i += 1) {
-            pq.contents[i] = new ArrayHeap<String>.Node("x" + i, i);
+            pq.contents[i] = new ArrayHeap.Node("x" + i, i);
         }
         // Change item x6's priority to a low value.
 
@@ -307,7 +328,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         ArrayHeap<String> pq = new ArrayHeap<>();
         pq.size = 7;
         for (int i = 1; i <= 7; i += 1) {
-            pq.contents[i] = new ArrayHeap<String>.Node("x" + i, i);
+            pq.contents[i] = new ArrayHeap.Node("x" + i, i);
         }
         // Change root's priority to a large value.
         pq.contents[1].myPriority = 10;
