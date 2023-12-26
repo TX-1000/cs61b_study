@@ -171,9 +171,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     public T removeMin() {
         if (size == 0) throw new ArrayIndexOutOfBoundsException("Heap is empty!");
         T minimum = contents[1].item();
-        swap(1, size);
-        contents[size] = null;
+        contents[1] = contents[size];
         sink(1);
+        contents[size] = null;
         size--;
         return minimum;
     }
