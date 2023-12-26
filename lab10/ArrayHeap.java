@@ -173,8 +173,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         T minimum = contents[1].item();
         swap(1, size);
         contents[size] = null;
-        size--;
         sink(1);
+        size--;
         return minimum;
     }
 
